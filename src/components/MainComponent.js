@@ -1,10 +1,13 @@
 //import logo from './logo.svg';
 import { Component } from 'react';
+import Home from './HomeComponent';
 import Header from './HeaderComponent';
 import Menu from './MenuComponent';
 import DishDetail from './DishDetail';
-import { DISHES } from '../shared/dishes';
 import Footer from './FooterComponent';
+import { DISHES } from '../shared/dishes';
+import { Switch , Route , Redirect } from 'react-router-dom';
+
 
 class Main extends Component {
   constructor(props){
@@ -12,20 +15,30 @@ class Main extends Component {
 
     this.state = {
       dishes : DISHES,
-      selecteDish: null
+      //selecteDish: null
     };
   }
 
-  onDishSelect(dishId){
-    this.setState({selectedDish : dishId});
-    }
+  // onDishSelect(dishId){
+  //   this.setState({selectedDish : dishId});
+  //   }
 
   render() {
+    
+    const HomePage = () => {
+      return(
+        <Home></Home>
+      );
+    }
+
     return (
     <div>
       <Header></Header>
-      <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)}></Menu>
-      <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]}></DishDetail>
+      <Switch>
+        <Route path="/home" component= {HomePage}></Route>
+        <Route exact path="/menu" component= {() => <Menu dishes={this.state.dishes}></Menu>}></Route>
+        <Redirect to="/home"></Redirect>
+      </Switch>
       <Footer></Footer> 
     </div>
     );
