@@ -22,7 +22,7 @@ function RenderMenuItems({dish, onClick}){
         });
 
         return(
-            <div className="Container">
+            <div className="container">
                 <div className="row">
                     {menu}
                 </div>

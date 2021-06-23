@@ -1,5 +1,4 @@
 import React from 'react';
-import { Component } from 'react';
 import { Card, CardBody, CardText, CardTitle, CardImg } from 'reactstrap';
 
     function RenderDishDetails({dish}){
@@ -43,7 +42,7 @@ import { Card, CardBody, CardText, CardTitle, CardImg } from 'reactstrap';
             }); 
     
             return(
-                <div className="Container">
+                <div className="container">
                     <div className="row">
                         <div className="col-12 col-md-5 m-1">
                             <RenderDishDetails dish={dish}></RenderDishDetails>
