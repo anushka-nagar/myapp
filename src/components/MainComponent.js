@@ -27,7 +27,6 @@ class Main extends Component {
   }
 
   render() {
-    
     const HomePage = () => {
       return(
         <Home dish={this.state.dishes.filter((dish) => dish.featured)[0]}
