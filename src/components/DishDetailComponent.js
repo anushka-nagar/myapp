@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardBody, CardText, CardTitle, CardImg , Breadcrumb , BreadcrumbItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { CommentForm } from './CommentFormComponent';
+import { Loading } from './Loading';
 
     function RenderDishDetails({dish}){
         return(
@@ -32,7 +33,23 @@ import { CommentForm } from './CommentFormComponent';
     }
 
     const DishDetail =  (props) => {
-        if(props.dish !== undefined){
+        if(props.isloading){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Loading></Loading>
+                    </div>
+                </div>
+            );
+        }else if(props.errmess){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <h4>{props.errmess}</h4>
+                    </div>
+                </div>
+            );
+        }else if(props.dish !== null){
             const showcomments = props.comments.map((comment) => {
                 return(
                     <div className="container">
