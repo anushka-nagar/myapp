@@ -31,9 +31,9 @@ import { CommentForm } from './CommentFormComponent';
         );
     }
 
-    const DishDetail =  ({dish , comments}) => {
-        if(dish !== undefined){
-            const showcomments = comments.map((comment) => {
+    const DishDetail =  (props) => {
+        if(props.dish !== undefined){
+            const showcomments = props.comments.map((comment) => {
                 return(
                     <div className="container">
                         <div key={comment.id}> 
@@ -48,21 +48,21 @@ import { CommentForm } from './CommentFormComponent';
                     <div className="row">
                         <Breadcrumb>
                             <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                            <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
+                            <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
                         </Breadcrumb>
                     </div>
                     <div className="col-12">
-                        <h3>{dish.name}</h3>
+                        <h3>{props.dish.name}</h3>
                         <hr></hr>
                     </div>
                     <div className="row">
                         <div className="col-12 col-md-5 m-1">
-                            <RenderDishDetails dish={dish}></RenderDishDetails>
+                            <RenderDishDetails dish={props.dish}></RenderDishDetails>
                         </div>
                         <div className="col-12 col-md-5 m-1">
                             <h1>Comments</h1>
                             {showcomments}
-                            <CommentForm></CommentForm>
+                            <CommentForm  addComment={props.addComment} dishId={props.dish.id}></CommentForm>
                         </div>
                     </div>
                 </div>  
