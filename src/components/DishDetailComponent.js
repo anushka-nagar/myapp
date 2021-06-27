@@ -3,11 +3,12 @@ import { Card, CardBody, CardText, CardTitle, CardImg , Breadcrumb , BreadcrumbI
 import { Link } from 'react-router-dom';
 import { CommentForm } from './CommentFormComponent';
 import { Loading } from './Loading';
+import { baseUrl } from '../shared/baseURL';
 
     function RenderDishDetails({dish}){
         return(
             <Card>
-                <CardImg width="100%" src={dish.image} alt={dish.name}></CardImg>
+                <CardImg width="100%" src={ baseUrl + dish.image } alt={dish.name}></CardImg>
                 <CardBody>
                 <CardTitle>
                     {dish.name}
@@ -33,7 +34,7 @@ import { Loading } from './Loading';
     }
 
     const DishDetail =  (props) => {
-        if(props.isloading){
+        if(props.dishLoading){
             return(
                 <div className="container">
                     <div className="row">
@@ -41,7 +42,7 @@ import { Loading } from './Loading';
                     </div>
                 </div>
             );
-        }else if(props.errmess){
+        }else if(props.dishErrmess){
             return(
                 <div className="container">
                     <div className="row">
