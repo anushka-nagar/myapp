@@ -80,7 +80,7 @@ import { baseUrl } from '../shared/baseURL';
                         <div className="col-12 col-md-5 m-1">
                             <h1>Comments</h1>
                             {showcomments}
-                            <CommentForm  addComment={props.addComment} dishId={props.dish.id}></CommentForm>
+                            <CommentForm  postComment={props.postComment} dishId={props.dish.id}></CommentForm>
                         </div>
                     </div>
                 </div>  
