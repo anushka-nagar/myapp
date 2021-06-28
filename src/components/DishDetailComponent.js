@@ -4,20 +4,25 @@ import { Link } from 'react-router-dom';
 import { CommentForm } from './CommentFormComponent';
 import { Loading } from './Loading';
 import { baseUrl } from '../shared/baseURL';
+import { FadeTransform , Fade , Stagger } from 'react-animation-components';
 
     function RenderDishDetails({dish}){
         return(
-            <Card>
-                <CardImg width="100%" src={ baseUrl + dish.image } alt={dish.name}></CardImg>
-                <CardBody>
-                <CardTitle>
-                    {dish.name}
-                </CardTitle>
-                <CardText>
-                    {dish.description}
-                </CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform in transformProps = {{
+                           exitTransform : 'scale(0.5) translateY(-50%)'
+                       }}>
+                <Card>
+                    <CardImg width="100%" src={ baseUrl + dish.image } alt={dish.name}></CardImg>
+                    <CardBody>
+                    <CardTitle>
+                        {dish.name}
+                    </CardTitle>
+                    <CardText>
+                        {dish.description}
+                    </CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         );
     }
 
@@ -53,11 +58,11 @@ import { baseUrl } from '../shared/baseURL';
         }else if(props.dish !== null){
             const showcomments = props.comments.map((comment) => {
                 return(
-                    <div className="container">
-                        <div key={comment.id}> 
+                    <Fade in>
+                        <li key={comment.id}> 
                             <RenderComments comment={comment}></RenderComments>
-                        </div>
-                    </div>
+                        </li>
+                    </Fade>        
                 );
             }); 
     
@@ -79,7 +84,11 @@ import { baseUrl } from '../shared/baseURL';
                         </div>
                         <div className="col-12 col-md-5 m-1">
                             <h1>Comments</h1>
-                            {showcomments}
+                            <ul className="list-unstyled">
+                                <Stagger in>
+                                    {showcomments}
+                                </Stagger>
+                            </ul>            
                             <CommentForm  postComment={props.postComment} dishId={props.dish.id}></CommentForm>
                         </div>
                     </div>
