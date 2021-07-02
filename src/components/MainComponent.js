@@ -9,7 +9,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { Switch , Route , Redirect , withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postComment , fetchComments, fetchDishes, fetchPromos } from '../redux/ActionCreators';
+import { postComment , fetchComments, fetchDishes, fetchPromos , fetchLeaders, postFeedback } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -18,7 +18,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchDishes : () => {dispatch(fetchDishes())},
   resetFeedbackForm : () => {dispatch(actions.reset('feedback'))},
   fetchComments : () => {dispatch(fetchComments())},
-  fetchPromos : () => {dispatch(fetchPromos())}
+  fetchPromos : () => {dispatch(fetchPromos())},
+  fetchLeaders : () => {dispatch(fetchLeaders())},
+  postFeedback : (firstname , lastname , telnum , email , contactType , agree , message) => dispatch(postFeedback(firstname , lastname , telnum , email , contactType , agree , message)) 
 });
 
 const mapStateToProps = (state) => {
@@ -26,7 +28,8 @@ const mapStateToProps = (state) => {
     dishes : state.dishes,
     comments : state.comments,
     leaders : state.leaders,
-    promotions : state.promotions
+    promotions : state.promotions,
+    feedback : state.feedback
   };
 };
 
@@ -39,6 +42,7 @@ class Main extends Component {
     this.props.fetchDishes();
     this.props.fetchPromos();
     this.props.fetchComments();
+    this.props.fetchLeaders();
   };
 
   render() {
@@ -50,7 +54,9 @@ class Main extends Component {
               promotion={this.props.promotions.promotions.filter((promotion) => promotion.featured)[0]}
               promosLoading={this.props.promotions.isloading}
               promosErrMess={this.props.promotions.errmess}              
-              leader={this.props.leaders.filter((leader) => leader.featured)[0]}></Home>
+              leader={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+              leadersLoading={this.props.leaders.isloading}
+              leadersErrMess={this.props.leaders.errmess}></Home>
       );
     }
 
@@ -75,7 +81,7 @@ class Main extends Component {
             <Route path="/home" component= {HomePage}></Route>
             <Route exact path="/menu" component= {() => <Menu dishes={this.props.dishes}></Menu>}></Route>
             <Route path="/menu/:dishId" component={DishWithId}></Route>
-            <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm}></Contact>}></Route>
+            <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} statefeedback={this.props.feedback}></Contact>}></Route>
             <Route exact path ="/aboutus" component={() => <About leaders={this.props.leaders}></About>}></Route>
             <Redirect to="/home"></Redirect>
           </Switch>
