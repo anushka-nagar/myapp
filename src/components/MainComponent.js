@@ -28,16 +28,12 @@ const mapStateToProps = (state) => {
     dishes : state.dishes,
     comments : state.comments,
     leaders : state.leaders,
-    promotions : state.promotions,
-    feedback : state.feedback
+    promotions : state.promotions
   };
 };
 
 class Main extends Component {
-  constructor(props){
-    super(props);
-  }
-
+  
   componentDidMount(){
     this.props.fetchDishes();
     this.props.fetchPromos();
@@ -81,7 +77,7 @@ class Main extends Component {
             <Route path="/home" component= {HomePage}></Route>
             <Route exact path="/menu" component= {() => <Menu dishes={this.props.dishes}></Menu>}></Route>
             <Route path="/menu/:dishId" component={DishWithId}></Route>
-            <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback} statefeedback={this.props.feedback}></Contact>}></Route>
+            <Route exact path="/contactus" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback}></Contact>}></Route>
             <Route exact path ="/aboutus" component={() => <About leaders={this.props.leaders}></About>}></Route>
             <Redirect to="/home"></Redirect>
           </Switch>
